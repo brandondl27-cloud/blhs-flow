@@ -253,7 +253,7 @@ export default function MobileDashboard() {
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
                     <p className="text-sm text-gray-900 dark:text-white">
-                      <span className="font-medium">{item.user}</span> {item.description}
+                      <span className="font-medium">{typeof item.user === 'object' ? item.user?.firstName || 'User' : item.user}</span> {item.description}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       {formatTime(item.timestamp)}
