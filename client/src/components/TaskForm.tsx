@@ -74,7 +74,7 @@ export default function TaskForm({ isOpen, onClose, task }: TaskFormProps) {
       };
 
       if (task) {
-        await apiRequest("PATCH", `/api/tasks/${task.id}`, payload);
+        await apiRequest("PATCH", `/api/tasks/${String(task.id)}`, payload);  // ⭐ KEY FIX
       } else {
         await apiRequest("POST", "/api/tasks", payload);
       }
