@@ -29,7 +29,7 @@ import {
 
 export default function TaskDetail() {
   const [match, params] = useRoute("/tasks/:id");
-  const id = params?.id;
+  const id = params?.id ? String(params.id) : undefined;  // ⭐ KEY FIX: String conversion
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -45,17 +45,17 @@ export default function TaskDetail() {
   });
 
   const { data: task, isLoading: taskLoading } = useQuery({
-    queryKey: [`/api/tasks/${id}`],
+    queryKey: [`/api/tasks/${String(id)}`],  // ⭐ KEY FIX: String conversion
     enabled: !!id,
   });
 
   const { data: comments, isLoading: commentsLoading } = useQuery({
-    queryKey: [`/api/tasks/${id}/comments`],
+    queryKey: [`/api/tasks/${String(id)}/comments`],  // ⭐ KEY FIX: String conversion
     enabled: !!id,
   });
 
   const { data: attachments, isLoading: attachmentsLoading } = useQuery({
-    queryKey: [`/api/tasks/${id}/attachments`],
+    queryKey: [`/api/tasks/${String(id)}/attachments`],  // ⭐ KEY FIX: String conversion
     enabled: !!id,
   });
 
@@ -74,10 +74,10 @@ export default function TaskDetail() {
 
   const updateTaskMutation = useMutation({
     mutationFn: async (updates: any) => {
-      await apiRequest("PATCH", `/api/tasks/${id}`, updates);
+      await apiRequest("PATCH", `/api/tasks/${String(id)}`, updates);  // ⭐ KEY FIX: String conversion
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tasks/${id}`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tasks/${String(id)}`] });  // ⭐ KEY FIX: String conversion
       queryClient.invalidateQueries({ queryKey: ["/api/tasks"] });
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard/stats"] });
       setIsEditing(false);
@@ -108,10 +108,10 @@ export default function TaskDetail() {
 
   const addCommentMutation = useMutation({
     mutationFn: async (content: string) => {
-      await apiRequest("POST", `/api/tasks/${id}/comments`, { content });
+      await apiRequest("POST", `/api/tasks/${String(id)}/comments`, { content });  // ⭐ KEY FIX: String conversion
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tasks/${id}/comments`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tasks/${String(id)}/comments`] });  // ⭐ KEY FIX: String conversion
       setNewComment("");
       toast({
         title: "Success",
@@ -140,7 +140,7 @@ export default function TaskDetail() {
 
   const deleteTaskMutation = useMutation({
     mutationFn: async () => {
-      await apiRequest("DELETE", `/api/tasks/${id}`);
+      await apiRequest("DELETE", `/api/tasks/${String(id)}`);  // ⭐ KEY FIX: String conversion
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tasks"] });
