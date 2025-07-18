@@ -14,5 +14,14 @@ export default defineConfig({
   build: {
     outDir: "../dist/public",
     emptyOutDir: true,
+    rollupOptions: {
+      external: [
+        "drizzle-orm",
+        "drizzle-orm/pg-core",
+        "@neondatabase/serverless",
+        "drizzle-kit",
+        "drizzle-zod"
+      ]
+    }
   },
 });
