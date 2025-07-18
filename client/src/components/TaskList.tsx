@@ -53,7 +53,7 @@ export default function TaskList({ type, onEditTask }: TaskListProps) {
 
   const deleteMutation = useMutation({
     mutationFn: async (taskId: number) => {
-      await apiRequest("DELETE", `/api/tasks/${taskId}`);
+      await apiRequest("DELETE", `/api/tasks/${String(taskId)}`);  // ⭐ KEY FIX: String conversion
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tasks"] });
@@ -85,7 +85,7 @@ export default function TaskList({ type, onEditTask }: TaskListProps) {
 
   const completeMutation = useMutation({
     mutationFn: async (taskId: number) => {
-      await apiRequest("PATCH", `/api/tasks/${taskId}`, {
+      await apiRequest("PATCH", `/api/tasks/${String(taskId)}`, {  // ⭐ KEY FIX: String conversion
         status: 'completed',
         progress: 100,
       });
