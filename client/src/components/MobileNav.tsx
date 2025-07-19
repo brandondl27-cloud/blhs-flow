@@ -137,7 +137,7 @@ export default function MobileNav() {
               
               return (
                 <Link key={item.path} href={item.path}>
-                  <div  {/* ✅ CORRECT: div instead of <a> */}
+                  <div
                     className={`flex items-center justify-between w-full p-3 rounded-lg transition-colors cursor-pointer ${
                       active 
                         ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' 
@@ -154,7 +154,7 @@ export default function MobileNav() {
                         {item.badge}
                       </Badge>
                     )}
-                  </div>  {/* ✅ CORRECT: closing div instead of </a> */}
+                  </div>
                 </Link>
               );
             })}
@@ -181,7 +181,7 @@ export default function MobileNav() {
             
             return (
               <Link key={item.path} href={item.path}>
-                <div className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors cursor-pointer ${  // ✅ CORRECT: div with cursor-pointer
+                <div className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors cursor-pointer ${
                   active 
                     ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' 
                     : 'text-gray-600 dark:text-gray-400'
@@ -199,7 +199,7 @@ export default function MobileNav() {
                   <span className="text-xs mt-1 font-medium">
                     {item.label.split(' ')[0]}
                   </span>
-                </div>  {/* ✅ CORRECT: closing div */}
+                </div>
               </Link>
             );
           })}
